@@ -6,17 +6,12 @@ int main()
 {
 	TicTacToe tictactoe;
 
-	std::cout << "TicTacToe!" << std::endl;
+	std::cout << "TicTacToe!" << std::endl << std::endl;
 
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
-	TicTacToe::TicTacToe();
+	while (tictactoe.gameover == false)
+	{
+		tictactoe.Round();
+	}
 
 	return 0;
 }

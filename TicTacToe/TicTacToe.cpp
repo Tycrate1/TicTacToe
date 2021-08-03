@@ -1,312 +1,93 @@
 #include "TicTacToe.h"
 
+#include <array>;
+
+std::array<std::array<int, 3>, 8> lines_to_check
+{ {
+	{{1,2,3}}, {{4,5,6}}, {{7,8,9}},
+
+	{{1,4,7}}, {{2,5,8}}, {{3,6,9}},
+
+	{{1,5,9}}, {{3,5,7}}
+} };
+
+bool TicTacToe::has_won(int symbol_to_check)
+{
+	for (auto line : lines_to_check)
+	{
+		int have_symbol = 0;
+		for (auto cell_num : line)
+		{
+			if (boxes[cell_num] == symbol_to_check) ++have_symbol;
+		}
+		if (have_symbol == 3) return true;
+	}
+	return false;
+}
+
 void TicTacToe::Round()
 {
 	turn += 1;
 
-	if (turn % 2 == 0)
-	{
-		player2Turn = true;
-		player1Turn = false;
-	}
-	else
-	{
-		player1Turn = true;
-		player2Turn = false;
-	}
+	player2Turn = (turn % 2 == 0);
+	player1Turn = !player2Turn;
 
 	if (player1Turn == true)
 	{
 		std::cout << "Player1's Turn" << std::endl;
-		std::cout << "Enter the number of one of these open spots: ";
-		
-		if (box1Open == true)
-		{
-			std::cout << "Box1, ";
-		}
-		if (box2Open == true)
-		{
-			std::cout << "Box2, ";
-		}
-		if (box3Open == true)
-		{
-			std::cout << "Box3, ";
-		}
-		if (box4Open == true)
-		{
-			std::cout << "Box4, ";
-		}
-		if (box5Open == true)
-		{
-			std::cout << "Box5, ";
-		}
-		if (box6Open == true)
-		{
-			std::cout << "Box6, ";
-		}
-		if (box7Open == true)
-		{
-			std::cout << "Box7, ";
-		}
-		if (box8Open == true)
-		{
-			std::cout << "Box8, ";
-		}
-		if (box9Open == true)
-		{
-			std::cout << "Box9, ";
-		}
-
-		std::cout << " Format: #" << std::endl;
 
 		std::cin >> box;
 
-		std::cout << " " << std::endl;
-
-		if (box == 1)
-		{
-			box1 = 1;
-			box1Open = false;
-		}
-		else if (box == 2)
-		{
-			box2 = 1;
-			box2Open = false;
-		}
-		else if (box == 3)
-		{
-			box3 = 1;
-			box3Open = false;
-		}
-		else if (box == 4)
-		{
-			box4 = 1;
-			box4Open = false;
-		}
-		else if (box == 5)
-		{
-			box5 = 1;
-			box5Open = false;
-		}
-		else if (box == 6)
-		{
-			box6 = 1;
-			box6Open = false;
-		}
-		else if (box == 7)
-		{
-			box7 = 1;
-			box7Open = false;
-		}
-		else if (box == 8)
-		{
-			box8 = 1;
-			box8Open = false;
-		}
-		else if (box == 9)
-		{
-			box9 = 1;
-			box9Open = false;
+		for (int i = 1; i < 10; i++) {
+			if (i == box)
+			{
+				boxes[i] = 1;
+			}
 		}
 
 		box = 0;
 
 		player2Turn = false;
 		player1Turn = false;
+
+		if (has_won(1) == true)
+		{
+			gameover = true;
+			std::cout << "Game Over! Player1 Wins!" << std::endl;
+		}
 	}
 	else if (player2Turn == true)
 	{
 		std::cout << "Player2's Turn" << std::endl;
-		std::cout << "Enter the number of one of these open spots: ";
-
-		if (box1Open == true)
-		{
-			std::cout << "Box1, ";
-		}
-		if (box2Open == true)
-		{
-			std::cout << "Box2, ";
-		}
-		if (box3Open == true)
-		{
-			std::cout << "Box3, ";
-		}
-		if (box4Open == true)
-		{
-			std::cout << "Box4, ";
-		}
-		if (box5Open == true)
-		{
-			std::cout << "Box5, ";
-		}
-		if (box6Open == true)
-		{
-			std::cout << "Box6, ";
-		}
-		if (box7Open == true)
-		{
-			std::cout << "Box7, ";
-		}
-		if (box8Open == true)
-		{
-			std::cout << "Box8, ";
-		}
-		if (box9Open == true)
-		{
-			std::cout << "Box9, ";
-		}
-
-		std::cout << " Format: #" << std::endl;
 
 		std::cin >> box;
 
-		std::cout << " " << std::endl;
-
-		if (box == 1)
-		{
-			box1 = 2;
-			box1Open = false;
-		}
-		else if (box == 2)
-		{
-			box2 = 2;
-			box2Open = false;
-		}
-		else if (box == 3)
-		{
-			box3 = 2;
-			box3Open = false;
-		}
-		else if (box == 4)
-		{
-			box4 = 2;
-			box4Open = false;
-		}
-		else if (box == 5)
-		{
-			box5 = 2;
-			box5Open = false;
-		}
-		else if (box == 6)
-		{
-			box6 = 2;
-			box6Open = false;
-		}
-		else if (box == 7)
-		{
-			box7 = 2;
-			box7Open = false;
-		}
-		else if (box == 8)
-		{
-			box8 = 2;
-			box8Open = false;
-		}
-		else if (box == 9)
-		{
-			box9 = 2;
-			box9Open = false;
+		for (int i = 1; i < 10; i++) {
+			if (i == box)
+			{
+				boxes[i] = 2;
+			}
 		}
 
 		box = 0;
 
 		player2Turn = false;
 		player1Turn = false;
+
+		if (has_won(2) == true)
+		{
+			gameover = true;
+			std::cout << "Game Over! Player2 Wins!" << std::endl;
+		}
 	}
 	else
 	{
 		std::cout << "Error: player1Turn & player2Turn are both false" << std::endl;
 	}
 
-	std::cout << box1 << " . " << box2 << " . " << box3 << std::endl;
+	std::cout << boxes[1] << " . " << boxes[2] << " . " << boxes[3] << std::endl;
 	std::cout << ". . . . ." << std::endl;
-	std::cout << box4 << " . " << box5 << " . " << box6 << std::endl;
+	std::cout << boxes[4] << " . " << boxes[5] << " . " << boxes[6] << std::endl;
 	std::cout << ". . . . ." << std::endl;
-	std::cout << box7 << " . " << box8 << " . " << box9 << std::endl;
-
-	std::cout << " " << std::endl;
-
-	if (box1 == 1 && box2 == 1 && box3 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-	else if (box1 == 1 && box4 == 1 && box7 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-	else if (box3 == 1 && box6 == 1 && box9 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-	else if (box7 == 1 && box8 == 1 && box9 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-	else if (box2 == 1 && box4 == 1 && box8 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-	else if (box4 == 1 && box5 == 1 && box6 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-	else if (box3 == 1 && box5 == 1 && box7 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-	else if (box1 == 1 && box5 == 1 && box9 == 1)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player1 Wins!" << std::endl;
-	}
-
-	///////////////////////////////////////////////////////////
-
-	if (box1 == 2 && box2 == 2 && box3 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
-	else if (box1 == 2 && box4 == 2 && box7 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
-	else if (box3 == 2 && box6 == 2 && box9 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
-	else if (box7 == 2 && box8 == 2 && box9 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
-	else if (box2 == 2 && box4 == 2 && box8 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
-	else if (box4 == 2 && box5 == 2 && box6 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
-	else if (box3 == 2 && box5 == 2 && box7 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
-	else if (box1 == 2 && box5 == 2 && box9 == 2)
-	{
-		gameover = true;
-		std::cout << "Game Over! Player2 Wins!" << std::endl;
-	}
+	std::cout << boxes[7] << " . " << boxes[8] << " . " << boxes[9] << std::endl;
 }
